@@ -1,0 +1,19 @@
+[package]
+name = "vtflib-sys"
+description = "FFI bindings for VTFLib."
+readme = "README.md"
+categories = [ "external-ffi-bindings", "multimedia::images" ]
+keywords = ["vtf", "vtflib"]
+repository = "https://github.com/lasa01/vtflib-sys.git"
+license = "MIT OR Apache-2.0"
+links = "VTFLib"
+version = "0.1.5"
+authors = ["Lassi Säike"]
+edition = "2018"
+
+[features]
+static = []
+
+[build-dependencies]
+cmake = "0.1.45"
+pkg-config = "0.3.19"
