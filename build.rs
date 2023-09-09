@@ -9,11 +9,11 @@ fn main() {
     println!("cargo:rerun-if-changed=vendor");
     println!("cargo:rerun-if-env-changed=VTFLIB_STATIC");
     println!("cargo:rerun-if-env-changed=VTFLIB_PATH");
-    println!("cargo:rerun-if-env-changed=VTFLIB13_PATH");
+    println!("cargo:rerun-if-env-changed=VTFLIB20_PATH");
 
-    if let Ok(path) = env::var("VTFLIB13_PATH") {
+    if let Ok(path) = env::var("VTFLIB20_PATH") {
         println!("cargo:rustc-link-search=native={}", path);
-        println!("cargo:rustc-link-lib=static=VTFLib13");
+        println!("cargo:rustc-link-lib=static=VTFLib20");
         return;
     }
 
@@ -27,9 +27,9 @@ fn main() {
 
     let mut pkg = pkg_config::Config::new();
     pkg.statik(statik);
-    pkg.atleast_version("1.3.2");
+    pkg.atleast_version("2.0.0");
     if pkg
-        .probe("VTFLib13")
+        .probe("VTFLib20")
         .or_else(|_| pkg.probe("VTFLib"))
         .is_err()
     {
@@ -58,7 +58,7 @@ fn build_static() {
 
     println!("cargo:rustc-link-search=native={}", lib_dest.display());
     println!("cargo:rustc-link-search=native={}", lib64_dest.display());
-    println!("cargo:rustc-link-lib=static=VTFLib13");
+    println!("cargo:rustc-link-lib=static=VTFLib20");
 
     if cfg!(unix) {
         let library_name = if cfg!(target_os = "macos") {

@@ -1,13 +1,13 @@
-# vtflib-sys
+# vtflib2-sys
 
-FFI bindings for VTFLib.
+FFI bindings for VTFLib2, a cross-platform and multithreading supporting version of VTFLib.
 
-`pkg-config` is used to find VTFLib.
+`pkg-config` is used to find VTFLib2.
 Defaults to dynamic linking, static linking can be enabled
 either with the `static` feature or with the `VTFLIB_STATIC` environment variable.
-If linking statically, keep in mind that VTFLib is LGPL-licensed.
+If linking statically, keep in mind that VTFLib2 is LGPL-licensed.
 
-If the library is not found and static linking is enabled, VTFLib is automatically built.
+If the library is not found and static linking is enabled, VTFLib2 is automatically built.
 This requires cmake and a C++ compiler.
 
 The library path can be overridden with the environment variable `VTFLIB_PATH` or `VTFLIB13_PATH`.
