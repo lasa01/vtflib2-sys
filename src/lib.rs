@@ -1186,10 +1186,8 @@ extern "C" {
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGenerateThumbnail(
-        VTFFile: *mut VTFLibVTFFile,
-        Error: *mut *mut VTFLibError,
-    ) -> vlBool;
+    pub fn vlImageGenerateThumbnail(VTFFile: *mut VTFLibVTFFile, Error: *mut VTFLibError)
+        -> vlBool;
 }
 extern "C" {
     pub fn vlImageGenerateNormalMap(
