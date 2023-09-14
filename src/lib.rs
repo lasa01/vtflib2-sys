@@ -8,12 +8,13 @@
 
 pub const vlFalse: ::std::os::raw::c_uchar = 0;
 pub const vlTrue: ::std::os::raw::c_uchar = 1;
-pub const VL_VERSION: u32 = 132;
-pub const VL_VERSION_STRING: &'static [u8; 6usize] = b"1.3.2\0";
 pub const VTF_MAJOR_VERSION: u32 = 7;
 pub const VTF_MINOR_VERSION: u32 = 5;
+pub const VTF_MINOR_VERSION_DEFAULT: u32 = 3;
 pub const VTF_MINOR_VERSION_MIN_SPHERE_MAP: u32 = 1;
 pub const VTF_MINOR_VERSION_MIN_VOLUME: u32 = 2;
+pub const VTF_MINOR_VERSION_MIN_RESOURCE: u32 = 3;
+pub const VTF_MINOR_VERSION_MIN_NO_SPHERE_MAP: u32 = 5;
 pub type vlBool = ::std::os::raw::c_uchar;
 pub type vlChar = ::std::os::raw::c_char;
 pub type vlByte = ::std::os::raw::c_uchar;
@@ -27,56 +28,76 @@ pub type vlSingle = f32;
 pub type vlDouble = f64;
 pub type vlVoid = ::std::os::raw::c_void;
 pub type vlFloat = vlSingle;
-pub const tagVTFLibOption_VTFLIB_DXT_QUALITY: tagVTFLibOption = 0;
-pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_R: tagVTFLibOption = 1;
-pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_G: tagVTFLibOption = 2;
-pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_B: tagVTFLibOption = 3;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_R: tagVTFLibOption = 4;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_G: tagVTFLibOption = 5;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_B: tagVTFLibOption = 6;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_R: tagVTFLibOption = 7;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_G: tagVTFLibOption = 8;
-pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_B: tagVTFLibOption = 9;
-pub const tagVTFLibOption_VTFLIB_FP16_HDR_KEY: tagVTFLibOption = 10;
-pub const tagVTFLibOption_VTFLIB_FP16_HDR_SHIFT: tagVTFLibOption = 11;
-pub const tagVTFLibOption_VTFLIB_FP16_HDR_GAMMA: tagVTFLibOption = 12;
-pub const tagVTFLibOption_VTFLIB_UNSHARPEN_RADIUS: tagVTFLibOption = 13;
-pub const tagVTFLibOption_VTFLIB_UNSHARPEN_AMOUNT: tagVTFLibOption = 14;
-pub const tagVTFLibOption_VTFLIB_UNSHARPEN_THRESHOLD: tagVTFLibOption = 15;
-pub const tagVTFLibOption_VTFLIB_XSHARPEN_STRENGTH: tagVTFLibOption = 16;
-pub const tagVTFLibOption_VTFLIB_XSHARPEN_THRESHOLD: tagVTFLibOption = 17;
-pub const tagVTFLibOption_VTFLIB_VMT_PARSE_MODE: tagVTFLibOption = 18;
-pub type tagVTFLibOption = ::std::os::raw::c_int;
-pub use self::tagVTFLibOption as VTFLibOption;
+pub type vlOffset = vlLong;
+pub type vlSSize = vlUInt;
+pub type vlSize = vlUInt;
+pub type vlUInt8 = ::std::os::raw::c_uchar;
+pub type vlUInt16 = ::std::os::raw::c_ushort;
+pub type vlUInt32 = ::std::os::raw::c_uint;
+pub type vlUInt64 = ::std::os::raw::c_ulonglong;
+pub const tagVLSeekMode_SEEK_MODE_BEGIN: tagVLSeekMode = 0;
+pub const tagVLSeekMode_SEEK_MODE_CURRENT: tagVLSeekMode = 1;
+pub const tagVLSeekMode_SEEK_MODE_END: tagVLSeekMode = 2;
+pub type tagVLSeekMode = ::std::os::raw::c_int;
+#[doc = "!<  = Red, Green, Blue, Alpha - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGBA8888: tagVTFImageFormat = 0;
+#[doc = "!<  = Alpha, Blue, Green, Red - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_ABGR8888: tagVTFImageFormat = 1;
+#[doc = "!<  = Red, Green, Blue - 24 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGB888: tagVTFImageFormat = 2;
+#[doc = "!<  = Blue, Green, Red - 24 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGR888: tagVTFImageFormat = 3;
+#[doc = "!<  = Red, Green, Blue - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGB565: tagVTFImageFormat = 4;
+#[doc = "!<  = Luminance - 8 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_I8: tagVTFImageFormat = 5;
+#[doc = "!<  = Luminance, Alpha - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_IA88: tagVTFImageFormat = 6;
+#[doc = "!<  = Paletted - 8 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_P8: tagVTFImageFormat = 7;
+#[doc = "!<  = Alpha- 8 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_A8: tagVTFImageFormat = 8;
+#[doc = "!<  = Red, Green, Blue, \"BlueScreen\" Alpha - 24 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGB888_BLUESCREEN: tagVTFImageFormat = 9;
+#[doc = "!<  = Red, Green, Blue, \"BlueScreen\" Alpha - 24 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGR888_BLUESCREEN: tagVTFImageFormat = 10;
+#[doc = "!<  = Alpha, Red, Green, Blue - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_ARGB8888: tagVTFImageFormat = 11;
+#[doc = "!<  = Blue, Green, Red, Alpha - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGRA8888: tagVTFImageFormat = 12;
+#[doc = "!<  = DXT1 compressed format - 4 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_DXT1: tagVTFImageFormat = 13;
+#[doc = "!<  = DXT3 compressed format - 8 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_DXT3: tagVTFImageFormat = 14;
+#[doc = "!<  = DXT5 compressed format - 8 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_DXT5: tagVTFImageFormat = 15;
+#[doc = "!<  = Blue, Green, Red, Unused - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGRX8888: tagVTFImageFormat = 16;
+#[doc = "!<  = Blue, Green, Red - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGR565: tagVTFImageFormat = 17;
+#[doc = "!<  = Blue, Green, Red, Unused - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGRX5551: tagVTFImageFormat = 18;
+#[doc = "!<  = Red, Green, Blue, Alpha - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGRA4444: tagVTFImageFormat = 19;
+#[doc = "!<  = DXT1 compressed format with 1-bit alpha - 4 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_DXT1_ONEBITALPHA: tagVTFImageFormat = 20;
+#[doc = "!<  = Blue, Green, Red, Alpha - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_BGRA5551: tagVTFImageFormat = 21;
+#[doc = "!<  = 2 channel format for DuDv/Normal maps - 16 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_UV88: tagVTFImageFormat = 22;
+#[doc = "!<  = 4 channel format for DuDv/Normal maps - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_UVWQ8888: tagVTFImageFormat = 23;
+#[doc = "!<  = Red, Green, Blue, Alpha - 64 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGBA16161616F: tagVTFImageFormat = 24;
+#[doc = "!<  = Red, Green, Blue, Alpha signed with mantissa - 64 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGBA16161616: tagVTFImageFormat = 25;
+#[doc = "!<  = 4 channel format for DuDv/Normal maps - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_UVLX8888: tagVTFImageFormat = 26;
+#[doc = "!<  = Luminance - 32 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_R32F: tagVTFImageFormat = 27;
+#[doc = "!<  = Red, Green, Blue - 96 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGB323232F: tagVTFImageFormat = 28;
+#[doc = "!<  = Red, Green, Blue, Alpha - 128 bpp"]
 pub const tagVTFImageFormat_IMAGE_FORMAT_RGBA32323232F: tagVTFImageFormat = 29;
 pub const tagVTFImageFormat_IMAGE_FORMAT_NV_DST16: tagVTFImageFormat = 30;
 pub const tagVTFImageFormat_IMAGE_FORMAT_NV_DST24: tagVTFImageFormat = 31;
@@ -89,7 +110,9 @@ pub const tagVTFImageFormat_IMAGE_FORMAT_ATI2N: tagVTFImageFormat = 37;
 pub const tagVTFImageFormat_IMAGE_FORMAT_ATI1N: tagVTFImageFormat = 38;
 pub const tagVTFImageFormat_IMAGE_FORMAT_COUNT: tagVTFImageFormat = 39;
 pub const tagVTFImageFormat_IMAGE_FORMAT_NONE: tagVTFImageFormat = -1;
+#[doc = "! Image data formats VTFLib supports.\n*!\nImage data formats supported by VTFLib. Details show colour channel order, plus number\nof bits per-pixel.\n\\note \"Bluescreen\" alpha uses any pixel with an pixel of R0, G0, B255 as transparent.\n*/"]
 pub type tagVTFImageFormat = ::std::os::raw::c_int;
+#[doc = "! Image data formats VTFLib supports.\n*!\nImage data formats supported by VTFLib. Details show colour channel order, plus number\nof bits per-pixel.\n\\note \"Bluescreen\" alpha uses any pixel with an pixel of R0, G0, B255 as transparent.\n*/"]
 pub use self::tagVTFImageFormat as VTFImageFormat;
 pub const tagVTFImageFlag_TEXTUREFLAGS_POINTSAMPLE: tagVTFImageFlag = 1;
 pub const tagVTFImageFlag_TEXTUREFLAGS_TRILINEAR: tagVTFImageFlag = 2;
@@ -141,7 +164,9 @@ pub const tagVTFImageFlag_TEXTUREFLAGS_DEPRECATED_SPECVAR_RED: tagVTFImageFlag =
 pub const tagVTFImageFlag_TEXTUREFLAGS_DEPRECATED_SPECVAR_ALPHA: tagVTFImageFlag = -2147483648;
 pub const tagVTFImageFlag_TEXTUREFLAGS_LAST: tagVTFImageFlag = 536870912;
 pub const tagVTFImageFlag_TEXTUREFLAGS_COUNT: tagVTFImageFlag = 30;
+#[doc = "! VTF image header flags."]
 pub type tagVTFImageFlag = ::std::os::raw::c_int;
+#[doc = "! VTF image header flags."]
 pub use self::tagVTFImageFlag as VTFImageFlag;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_RIGHT: tagVTFCubeMapFace = 0;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_LEFT: tagVTFCubeMapFace = 1;
@@ -149,9 +174,11 @@ pub const tagVTFCubeMapFace_CUBEMAP_FACE_BACK: tagVTFCubeMapFace = 2;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_FRONT: tagVTFCubeMapFace = 3;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_UP: tagVTFCubeMapFace = 4;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_DOWN: tagVTFCubeMapFace = 5;
-pub const tagVTFCubeMapFace_CUBEMAP_FACE_SPHERE_MAP: tagVTFCubeMapFace = 6;
+pub const tagVTFCubeMapFace_CUBEMAP_FACE_SphereMap: tagVTFCubeMapFace = 6;
 pub const tagVTFCubeMapFace_CUBEMAP_FACE_COUNT: tagVTFCubeMapFace = 7;
+#[doc = "! VTF image cubemap face indices."]
 pub type tagVTFCubeMapFace = ::std::os::raw::c_int;
+#[doc = "! VTF image cubemap face indices."]
 pub use self::tagVTFCubeMapFace as VTFCubeMapFace;
 pub const tagVTFMipmapFilter_MIPMAP_FILTER_POINT: tagVTFMipmapFilter = 0;
 pub const tagVTFMipmapFilter_MIPMAP_FILTER_BOX: tagVTFMipmapFilter = 1;
@@ -168,7 +195,9 @@ pub const tagVTFMipmapFilter_MIPMAP_FILTER_HAMMING: tagVTFMipmapFilter = 11;
 pub const tagVTFMipmapFilter_MIPMAP_FILTER_BLACKMAN: tagVTFMipmapFilter = 12;
 pub const tagVTFMipmapFilter_MIPMAP_FILTER_KAISER: tagVTFMipmapFilter = 13;
 pub const tagVTFMipmapFilter_MIPMAP_FILTER_COUNT: tagVTFMipmapFilter = 14;
+#[doc = "! MIP map reduction filter indices."]
 pub type tagVTFMipmapFilter = ::std::os::raw::c_int;
+#[doc = "! MIP map reduction filter indices."]
 pub use self::tagVTFMipmapFilter as VTFMipmapFilter;
 pub const tagVTFSharpenFilter_SHARPEN_FILTER_NONE: tagVTFSharpenFilter = 0;
 pub const tagVTFSharpenFilter_SHARPEN_FILTER_NEGATIVE: tagVTFSharpenFilter = 1;
@@ -190,7 +219,9 @@ pub const tagVTFSharpenFilter_SHARPEN_FILTER_UNSHARP: tagVTFSharpenFilter = 16;
 pub const tagVTFSharpenFilter_SHARPEN_FILTER_XSHARPEN: tagVTFSharpenFilter = 17;
 pub const tagVTFSharpenFilter_SHARPEN_FILTER_WARPSHARP: tagVTFSharpenFilter = 18;
 pub const tagVTFSharpenFilter_SHARPEN_FILTER_COUNT: tagVTFSharpenFilter = 19;
+#[doc = "! MIP map sharpen filter indices."]
 pub type tagVTFSharpenFilter = ::std::os::raw::c_int;
+#[doc = "! MIP map sharpen filter indices."]
 pub use self::tagVTFSharpenFilter as VTFSharpenFilter;
 pub const tagDXTQuality_DXT_QUALITY_LOW: tagDXTQuality = 0;
 pub const tagDXTQuality_DXT_QUALITY_MEDIUM: tagDXTQuality = 1;
@@ -206,7 +237,9 @@ pub const tagVTFKernelFilter_KERNEL_FILTER_7X7: tagVTFKernelFilter = 3;
 pub const tagVTFKernelFilter_KERNEL_FILTER_9X9: tagVTFKernelFilter = 4;
 pub const tagVTFKernelFilter_KERNEL_FILTER_DUDV: tagVTFKernelFilter = 5;
 pub const tagVTFKernelFilter_KERNEL_FILTER_COUNT: tagVTFKernelFilter = 6;
+#[doc = "! Normal map creation kernel size indices."]
 pub type tagVTFKernelFilter = ::std::os::raw::c_int;
+#[doc = "! Normal map creation kernel size indices."]
 pub use self::tagVTFKernelFilter as VTFKernelFilter;
 pub const tagVTFHeightConversionMethod_HEIGHT_CONVERSION_METHOD_ALPHA:
     tagVTFHeightConversionMethod = 0;
@@ -226,24 +259,42 @@ pub const tagVTFHeightConversionMethod_HEIGHT_CONVERSION_METHOD_COLORSPACE:
     tagVTFHeightConversionMethod = 7;
 pub const tagVTFHeightConversionMethod_HEIGHT_CONVERSION_METHOD_COUNT:
     tagVTFHeightConversionMethod = 8;
+#[doc = "! Normal map height conversion method indices."]
 pub type tagVTFHeightConversionMethod = ::std::os::raw::c_int;
+#[doc = "! Normal map height conversion method indices."]
 pub use self::tagVTFHeightConversionMethod as VTFHeightConversionMethod;
 pub const tagVTFNormalAlphaResult_NORMAL_ALPHA_RESULT_NOCHANGE: tagVTFNormalAlphaResult = 0;
 pub const tagVTFNormalAlphaResult_NORMAL_ALPHA_RESULT_HEIGHT: tagVTFNormalAlphaResult = 1;
 pub const tagVTFNormalAlphaResult_NORMAL_ALPHA_RESULT_BLACK: tagVTFNormalAlphaResult = 2;
 pub const tagVTFNormalAlphaResult_NORMAL_ALPHA_RESULT_WHITE: tagVTFNormalAlphaResult = 3;
 pub const tagVTFNormalAlphaResult_NORMAL_ALPHA_RESULT_COUNT: tagVTFNormalAlphaResult = 4;
+#[doc = "! Normal map alpha channel handling indices."]
 pub type tagVTFNormalAlphaResult = ::std::os::raw::c_int;
+#[doc = "! Normal map alpha channel handling indices."]
 pub use self::tagVTFNormalAlphaResult as VTFNormalAlphaResult;
 pub const tagVTFResizeMethod_RESIZE_NEAREST_POWER2: tagVTFResizeMethod = 0;
 pub const tagVTFResizeMethod_RESIZE_BIGGEST_POWER2: tagVTFResizeMethod = 1;
 pub const tagVTFResizeMethod_RESIZE_SMALLEST_POWER2: tagVTFResizeMethod = 2;
 pub const tagVTFResizeMethod_RESIZE_SET: tagVTFResizeMethod = 3;
 pub const tagVTFResizeMethod_RESIZE_COUNT: tagVTFResizeMethod = 4;
+#[doc = "! Image re-size handling method indices."]
 pub type tagVTFResizeMethod = ::std::os::raw::c_int;
+#[doc = "! Image re-size handling method indices."]
 pub use self::tagVTFResizeMethod as VTFResizeMethod;
+pub const tagVTFLookDir_LOOK_DOWN_X: tagVTFLookDir = 0;
+pub const tagVTFLookDir_LOOK_DOWN_NEGX: tagVTFLookDir = 1;
+pub const tagVTFLookDir_LOOK_DOWN_Y: tagVTFLookDir = 2;
+pub const tagVTFLookDir_LOOK_DOWN_NEGY: tagVTFLookDir = 3;
+pub const tagVTFLookDir_LOOK_DOWN_Z: tagVTFLookDir = 4;
+pub const tagVTFLookDir_LOOK_DOWN_NEGZ: tagVTFLookDir = 5;
+#[doc = "! Spheremap creation look direction indices."]
+pub type tagVTFLookDir = ::std::os::raw::c_int;
+#[doc = "! Spheremap creation look direction indices."]
+pub use self::tagVTFLookDir as VTFLookDir;
 pub const tagVTFResourceEntryTypeFlag_RSRCF_HAS_NO_DATA_CHUNK: tagVTFResourceEntryTypeFlag = 2;
+#[doc = "! Resource entry type flags."]
 pub type tagVTFResourceEntryTypeFlag = ::std::os::raw::c_int;
+#[doc = "! Resource entry type flags."]
 pub use self::tagVTFResourceEntryTypeFlag as VTFResourceEntryTypeFlag;
 pub const tagVTFResourceEntryType_VTF_LEGACY_RSRC_LOW_RES_IMAGE: tagVTFResourceEntryType = 1;
 pub const tagVTFResourceEntryType_VTF_LEGACY_RSRC_IMAGE: tagVTFResourceEntryType = 48;
@@ -253,26 +304,15 @@ pub const tagVTFResourceEntryType_VTF_RSRC_TEXTURE_LOD_SETTINGS: tagVTFResourceE
 pub const tagVTFResourceEntryType_VTF_RSRC_TEXTURE_SETTINGS_EX: tagVTFResourceEntryType = 38753108;
 pub const tagVTFResourceEntryType_VTF_RSRC_KEY_VALUE_DATA: tagVTFResourceEntryType = 4478539;
 pub const tagVTFResourceEntryType_VTF_RSRC_MAX_DICTIONARY_ENTRIES: tagVTFResourceEntryType = 32;
+#[doc = "! Resource entry type idendifiers."]
 pub type tagVTFResourceEntryType = ::std::os::raw::c_int;
+#[doc = "! Resource entry type idendifiers."]
 pub use self::tagVTFResourceEntryType as VTFResourceEntryType;
-pub const tagVMTParseMode_PARSE_MODE_STRICT: tagVMTParseMode = 0;
-pub const tagVMTParseMode_PARSE_MODE_LOOSE: tagVMTParseMode = 1;
-pub const tagVMTParseMode_PARSE_MODE_COUNT: tagVMTParseMode = 2;
-pub type tagVMTParseMode = ::std::os::raw::c_int;
-pub use self::tagVMTParseMode as VMTParseMode;
-pub const tagVMTNodeType_NODE_TYPE_GROUP: tagVMTNodeType = 0;
-pub const tagVMTNodeType_NODE_TYPE_GROUP_END: tagVMTNodeType = 1;
-pub const tagVMTNodeType_NODE_TYPE_STRING: tagVMTNodeType = 2;
-pub const tagVMTNodeType_NODE_TYPE_INTEGER: tagVMTNodeType = 3;
-pub const tagVMTNodeType_NODE_TYPE_SINGLE: tagVMTNodeType = 4;
-pub const tagVMTNodeType_NODE_TYPE_COUNT: tagVMTNodeType = 5;
-pub type tagVMTNodeType = ::std::os::raw::c_int;
-pub use self::tagVMTNodeType as VMTNodeType;
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
 pub struct tagSVTFImageFormatInfo {
     #[doc = "!< Enumeration text equivalent."]
-    pub lpName: *mut vlChar,
+    pub lpName: *const vlChar,
     #[doc = "!< Format bits per pixel."]
     pub uiBitsPerPixel: vlUInt,
     #[doc = "!< Format bytes per pixel."]
@@ -289,6 +329,112 @@ pub struct tagSVTFImageFormatInfo {
     pub bIsCompressed: vlBool,
     #[doc = "!< Format is supported by VTFLib."]
     pub bIsSupported: vlBool,
+}
+#[test]
+fn bindgen_test_layout_tagSVTFImageFormatInfo() {
+    const UNINIT: ::std::mem::MaybeUninit<tagSVTFImageFormatInfo> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<tagSVTFImageFormatInfo>(),
+        34usize,
+        concat!("Size of: ", stringify!(tagSVTFImageFormatInfo))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<tagSVTFImageFormatInfo>(),
+        1usize,
+        concat!("Alignment of ", stringify!(tagSVTFImageFormatInfo))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).lpName) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(lpName)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiBitsPerPixel) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiBitsPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiBytesPerPixel) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiBytesPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiRedBitsPerPixel) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiRedBitsPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiGreenBitsPerPixel) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiGreenBitsPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiBlueBitsPerPixel) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiBlueBitsPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiAlphaBitsPerPixel) as usize - ptr as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(uiAlphaBitsPerPixel)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bIsCompressed) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(bIsCompressed)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bIsSupported) as usize - ptr as usize },
+        33usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFImageFormatInfo),
+            "::",
+            stringify!(bIsSupported)
+        )
+    );
 }
 pub type SVTFImageFormatInfo = tagSVTFImageFormatInfo;
 #[repr(C, packed)]
@@ -361,111 +507,441 @@ pub struct tagSVTFCreateOptions {
     #[doc = "!< Generate a sphere map for six faced environment maps."]
     pub bSphereMap: vlBool,
 }
+#[test]
+fn bindgen_test_layout_tagSVTFCreateOptions() {
+    const UNINIT: ::std::mem::MaybeUninit<tagSVTFCreateOptions> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<tagSVTFCreateOptions>(),
+        105usize,
+        concat!("Size of: ", stringify!(tagSVTFCreateOptions))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<tagSVTFCreateOptions>(),
+        1usize,
+        concat!("Alignment of ", stringify!(tagSVTFCreateOptions))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiVersion) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiVersion)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ImageFormat) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(ImageFormat)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiFlags) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiFlags)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiStartFrame) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiStartFrame)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sBumpScale) as usize - ptr as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(sBumpScale)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sReflectivity) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(sReflectivity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bMipmaps) as usize - ptr as usize },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bMipmaps)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).MipmapFilter) as usize - ptr as usize },
+        37usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(MipmapFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).MipmapSharpenFilter) as usize - ptr as usize },
+        41usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(MipmapSharpenFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bThumbnail) as usize - ptr as usize },
+        45usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bThumbnail)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bReflectivity) as usize - ptr as usize },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bReflectivity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bResize) as usize - ptr as usize },
+        47usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bResize)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ResizeMethod) as usize - ptr as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(ResizeMethod)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ResizeFilter) as usize - ptr as usize },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(ResizeFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ResizeSharpenFilter) as usize - ptr as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(ResizeSharpenFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiResizeWidth) as usize - ptr as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiResizeWidth)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiResizeHeight) as usize - ptr as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiResizeHeight)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bResizeClamp) as usize - ptr as usize },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bResizeClamp)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiResizeClampWidth) as usize - ptr as usize },
+        69usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiResizeClampWidth)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uiResizeClampHeight) as usize - ptr as usize },
+        73usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(uiResizeClampHeight)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bGammaCorrection) as usize - ptr as usize },
+        77usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bGammaCorrection)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sGammaCorrection) as usize - ptr as usize },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(sGammaCorrection)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalMap) as usize - ptr as usize },
+        82usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalMap)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).KernelFilter) as usize - ptr as usize },
+        83usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(KernelFilter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).HeightConversionMethod) as usize - ptr as usize },
+        87usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(HeightConversionMethod)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).NormalAlphaResult) as usize - ptr as usize },
+        91usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(NormalAlphaResult)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalMinimumZ) as usize - ptr as usize },
+        95usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalMinimumZ)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sNormalScale) as usize - ptr as usize },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(sNormalScale)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalWrap) as usize - ptr as usize },
+        100usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalWrap)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalInvertX) as usize - ptr as usize },
+        101usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalInvertX)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalInvertY) as usize - ptr as usize },
+        102usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalInvertY)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bNormalInvertZ) as usize - ptr as usize },
+        103usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bNormalInvertZ)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bSphereMap) as usize - ptr as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tagSVTFCreateOptions),
+            "::",
+            stringify!(bSphereMap)
+        )
+    );
+}
 pub type SVTFCreateOptions = tagSVTFCreateOptions;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct tagSVTFTextureLODControlResource {
-    pub ResolutionClampU: vlByte,
-    pub ResolutionClampV: vlByte,
-    pub Padding: [vlByte; 2usize],
+pub struct VTFLibVTFFile {
+    _unused: [u8; 0],
 }
-pub type SVTFTextureLODControlResource = tagSVTFTextureLODControlResource;
-pub const tagVLProc_PROC_READ_CLOSE: tagVLProc = 0;
-pub const tagVLProc_PROC_READ_OPEN: tagVLProc = 1;
-pub const tagVLProc_PROC_READ_READ: tagVLProc = 2;
-pub const tagVLProc_PROC_READ_SEEK: tagVLProc = 3;
-pub const tagVLProc_PROC_READ_TELL: tagVLProc = 4;
-pub const tagVLProc_PROC_READ_SIZE: tagVLProc = 5;
-pub const tagVLProc_PROC_WRITE_CLOSE: tagVLProc = 6;
-pub const tagVLProc_PROC_WRITE_OPEN: tagVLProc = 7;
-pub const tagVLProc_PROC_WRITE_WRITE: tagVLProc = 8;
-pub const tagVLProc_PROC_WRITE_SEEK: tagVLProc = 9;
-pub const tagVLProc_PROC_WRITE_SIZE: tagVLProc = 10;
-pub const tagVLProc_PROC_WRITE_TELL: tagVLProc = 11;
-pub const tagVLProc_PROC_COUNT: tagVLProc = 12;
-pub type tagVLProc = ::std::os::raw::c_int;
-pub use self::tagVLProc as VLProc;
-pub const tagVLSeekMode_SEEK_MODE_BEGIN: tagVLSeekMode = 0;
-pub const tagVLSeekMode_SEEK_MODE_CURRENT: tagVLSeekMode = 1;
-pub const tagVLSeekMode_SEEK_MODE_END: tagVLSeekMode = 2;
-pub type tagVLSeekMode = ::std::os::raw::c_int;
-pub use self::tagVLSeekMode as VLSeekMode;
-pub type PReadCloseProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlVoid>;
-pub type PReadOpenProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlBool>;
-pub type PReadReadProc = ::std::option::Option<
-    unsafe extern "C" fn(arg1: *mut vlVoid, arg2: vlUInt, arg3: *mut vlVoid) -> vlUInt,
->;
-pub type PReadSeekProc = ::std::option::Option<
-    unsafe extern "C" fn(arg1: vlLong, arg2: VLSeekMode, arg3: *mut vlVoid) -> vlUInt,
->;
-pub type PReadSizeProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlUInt>;
-pub type PReadTellProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlUInt>;
-pub type PWriteCloseProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlVoid>;
-pub type PWriteOpenProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlBool>;
-pub type PWriteWriteProc = ::std::option::Option<
-    unsafe extern "C" fn(arg1: *mut vlVoid, arg2: vlUInt, arg3: *mut vlVoid) -> vlUInt,
->;
-pub type PWriteSeekProc = ::std::option::Option<
-    unsafe extern "C" fn(arg1: vlLong, arg2: VLSeekMode, arg3: *mut vlVoid) -> vlUInt,
->;
-pub type PWriteSizeProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlUInt>;
-pub type PWriteTellProc = ::std::option::Option<unsafe extern "C" fn(arg1: *mut vlVoid) -> vlUInt>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct VTFLibVMTFile {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct VTFLibError {
+    _unused: [u8; 0],
+}
+pub const tagVTFLibOption_VTFLIB_DXT_QUALITY: tagVTFLibOption = 0;
+pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_R: tagVTFLibOption = 1;
+pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_G: tagVTFLibOption = 2;
+pub const tagVTFLibOption_VTFLIB_LUMINANCE_WEIGHT_B: tagVTFLibOption = 3;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_R: tagVTFLibOption = 4;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_G: tagVTFLibOption = 5;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_MASK_B: tagVTFLibOption = 6;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_R: tagVTFLibOption = 7;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_G: tagVTFLibOption = 8;
+pub const tagVTFLibOption_VTFLIB_BLUESCREEN_CLEAR_B: tagVTFLibOption = 9;
+pub const tagVTFLibOption_VTFLIB_FP16_HDR_KEY: tagVTFLibOption = 10;
+pub const tagVTFLibOption_VTFLIB_FP16_HDR_SHIFT: tagVTFLibOption = 11;
+pub const tagVTFLibOption_VTFLIB_FP16_HDR_GAMMA: tagVTFLibOption = 12;
+pub const tagVTFLibOption_VTFLIB_UNSHARPEN_RADIUS: tagVTFLibOption = 13;
+pub const tagVTFLibOption_VTFLIB_UNSHARPEN_AMOUNT: tagVTFLibOption = 14;
+pub const tagVTFLibOption_VTFLIB_UNSHARPEN_THRESHOLD: tagVTFLibOption = 15;
+pub const tagVTFLibOption_VTFLIB_XSHARPEN_STRENGTH: tagVTFLibOption = 16;
+pub const tagVTFLibOption_VTFLIB_XSHARPEN_THRESHOLD: tagVTFLibOption = 17;
+pub const tagVTFLibOption_VTFLIB_VMT_PARSE_MODE: tagVTFLibOption = 18;
+pub type tagVTFLibOption = ::std::os::raw::c_int;
+pub use self::tagVTFLibOption as VTFLibOption;
 extern "C" {
+    #[doc = "! Return the VTFLib version as an integer."]
     pub fn vlGetVersion() -> vlUInt;
 }
 extern "C" {
+    #[doc = "! Return the VTFLib version as a string."]
     pub fn vlGetVersionString() -> *const vlChar;
 }
 extern "C" {
-    pub fn vlGetLastError() -> *const vlChar;
-}
-extern "C" {
-    pub fn vlInitialize() -> vlBool;
-}
-extern "C" {
-    pub fn vlShutdown() -> vlVoid;
-}
-extern "C" {
+    #[doc = "! Return the specified option."]
     pub fn vlGetBoolean(Option: VTFLibOption) -> vlBool;
 }
 extern "C" {
-    pub fn vlSetBoolean(Option: VTFLibOption, bValue: vlBool) -> vlVoid;
+    #[doc = "! Set the specified option."]
+    pub fn vlSetBoolean(Option: VTFLibOption, bValue: vlBool);
 }
 extern "C" {
+    #[doc = "! Return the specified option."]
     pub fn vlGetInteger(Option: VTFLibOption) -> vlInt;
 }
 extern "C" {
-    pub fn vlSetInteger(Option: VTFLibOption, iValue: vlInt) -> vlVoid;
+    #[doc = "! Set the specified option."]
+    pub fn vlSetInteger(Option: VTFLibOption, iValue: vlInt);
 }
 extern "C" {
+    #[doc = "! Return the specified option."]
     pub fn vlGetFloat(Option: VTFLibOption) -> vlSingle;
 }
 extern "C" {
-    pub fn vlSetFloat(Option: VTFLibOption, sValue: vlSingle) -> vlVoid;
+    #[doc = "! Set the specified option."]
+    pub fn vlSetFloat(Option: VTFLibOption, sValue: vlSingle);
 }
 extern "C" {
-    pub fn vlSetProc(Proc: VLProc, pProc: *mut vlVoid) -> vlVoid;
+    pub fn vlCreateVTFFile() -> *mut VTFLibVTFFile;
 }
 extern "C" {
-    pub fn vlGetProc(Proc: VLProc) -> *mut vlVoid;
+    pub fn vlDestroyVTFFile(VTFFile: *mut VTFLibVTFFile);
 }
 extern "C" {
-    pub fn vlImageIsBound() -> vlBool;
+    pub fn vlCreateVTFLibError() -> *mut VTFLibError;
 }
 extern "C" {
-    pub fn vlBindImage(uiImage: vlUInt) -> vlBool;
+    pub fn vlDestroyVTFLibError(VTFLibError: *mut VTFLibError);
 }
 extern "C" {
-    pub fn vlCreateImage(uiImage: *mut vlUInt) -> vlBool;
+    pub fn vlGetErrorMessage(VTFLibError: *const VTFLibError) -> *const vlChar;
 }
 extern "C" {
-    pub fn vlDeleteImage(uiImage: vlUInt) -> vlVoid;
-}
-extern "C" {
-    pub fn vlImageCreateDefaultCreateStructure(VTFCreateOptions: *mut SVTFCreateOptions) -> vlVoid;
+    pub fn vlImageCreateDefaultCreateStructure(VTFCreateOptions: *mut SVTFCreateOptions);
 }
 extern "C" {
     pub fn vlImageCreate(
+        VTFFile: *mut VTFLibVTFFile,
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         uiFrames: vlUInt,
@@ -475,18 +951,22 @@ extern "C" {
         bThumbnail: vlBool,
         bMipmaps: vlBool,
         bNullImageData: vlBool,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageCreateSingle(
+        VTFFile: *mut VTFLibVTFFile,
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         lpImageDataRGBA8888: *mut vlByte,
         VTFCreateOptions: *mut SVTFCreateOptions,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageCreateMultiple(
+        VTFFile: *mut VTFLibVTFFile,
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         uiFrames: vlUInt,
@@ -494,109 +974,136 @@ extern "C" {
         uiSlices: vlUInt,
         lpImageDataRGBA8888: *mut *mut vlByte,
         VTFCreateOptions: *mut SVTFCreateOptions,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageDestroy() -> vlVoid;
+    pub fn vlImageIsLoaded(VTFFile: *const VTFLibVTFFile) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageIsLoaded() -> vlBool;
-}
-extern "C" {
-    pub fn vlImageLoad(cFileName: *const vlChar, bHeaderOnly: vlBool) -> vlBool;
+    pub fn vlImageLoad(
+        VTFFile: *mut VTFLibVTFFile,
+        cFileName: *const vlChar,
+        bHeaderOnly: vlBool,
+        Error: *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageLoadLump(
+        VTFFile: *mut VTFLibVTFFile,
         lpData: *const vlVoid,
-        uiBufferSize: vlUInt,
+        uiBufferSize: vlSize,
         bHeaderOnly: vlBool,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageLoadProc(pUserData: *mut vlVoid, bHeaderOnly: vlBool) -> vlBool;
+    pub fn vlImageLoadProc(
+        VTFFile: *mut VTFLibVTFFile,
+        pUserData: *mut vlVoid,
+        bHeaderOnly: vlBool,
+        Error: *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageSave(cFileName: *const vlChar) -> vlBool;
+    pub fn vlImageSave(
+        VTFFile: *const VTFLibVTFFile,
+        cFileName: *const vlChar,
+        Error: *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageSaveLump(
+        VTFFile: *const VTFLibVTFFile,
         lpData: *mut vlVoid,
-        uiBufferSize: vlUInt,
-        uiSize: *mut vlUInt,
+        uiBufferSize: vlSize,
+        uiSize: *mut vlSize,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageSaveProc(pUserData: *mut vlVoid) -> vlBool;
+    pub fn vlImageSaveProc(
+        VTFFile: *const VTFLibVTFFile,
+        pUserData: *mut vlVoid,
+        Error: *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGetHasImage() -> vlUInt;
+    pub fn vlImageGetHasImage(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetMajorVersion() -> vlUInt;
+    pub fn vlImageGetMajorVersion(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetMinorVersion() -> vlUInt;
+    pub fn vlImageGetMinorVersion(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetSize() -> vlUInt;
+    pub fn vlImageGetSize(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetWidth() -> vlUInt;
+    pub fn vlImageGetWidth(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetHeight() -> vlUInt;
+    pub fn vlImageGetHeight(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetDepth() -> vlUInt;
+    pub fn vlImageGetDepth(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetFrameCount() -> vlUInt;
+    pub fn vlImageGetFrameCount(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetFaceCount() -> vlUInt;
+    pub fn vlImageGetFaceCount(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetMipmapCount() -> vlUInt;
+    pub fn vlImageGetMipmapCount(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetStartFrame() -> vlUInt;
+    pub fn vlImageGetStartFrame(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageSetStartFrame(uiStartFrame: vlUInt) -> vlVoid;
+    pub fn vlImageSetStartFrame(VTFFile: *mut VTFLibVTFFile, uiStartFrame: vlUInt);
 }
 extern "C" {
-    pub fn vlImageGetFlags() -> vlUInt;
+    pub fn vlImageGetFlags(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageSetFlags(uiFlags: vlUInt) -> vlVoid;
+    pub fn vlImageSetFlags(VTFFile: *mut VTFLibVTFFile, uiFlags: vlUInt);
 }
 extern "C" {
-    pub fn vlImageGetFlag(ImageFlag: VTFImageFlag) -> vlBool;
+    pub fn vlImageGetFlag(VTFFile: *const VTFLibVTFFile, ImageFlag: VTFImageFlag) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageSetFlag(ImageFlag: VTFImageFlag, bState: vlBool) -> vlVoid;
+    pub fn vlImageSetFlag(VTFFile: *mut VTFLibVTFFile, ImageFlag: VTFImageFlag, bState: vlBool);
 }
 extern "C" {
-    pub fn vlImageGetBumpmapScale() -> vlSingle;
+    pub fn vlImageGetBumpmapScale(VTFFile: *const VTFLibVTFFile) -> vlSingle;
 }
 extern "C" {
-    pub fn vlImageSetBumpmapScale(sBumpmapScale: vlSingle) -> vlVoid;
+    pub fn vlImageSetBumpmapScale(VTFFile: *mut VTFLibVTFFile, sBumpmapScale: vlSingle);
 }
 extern "C" {
     pub fn vlImageGetReflectivity(
+        VTFFile: *const VTFLibVTFFile,
         sX: *mut vlSingle,
         sY: *mut vlSingle,
         sZ: *mut vlSingle,
-    ) -> vlVoid;
+    );
 }
 extern "C" {
-    pub fn vlImageSetReflectivity(sX: vlSingle, sY: vlSingle, sZ: vlSingle) -> vlVoid;
+    pub fn vlImageSetReflectivity(
+        VTFFile: *mut VTFLibVTFFile,
+        sX: vlSingle,
+        sY: vlSingle,
+        sZ: vlSingle,
+    );
 }
 extern "C" {
-    pub fn vlImageGetFormat() -> VTFImageFormat;
+    pub fn vlImageGetFormat(VTFFile: *const VTFLibVTFFile) -> VTFImageFormat;
 }
 extern "C" {
     pub fn vlImageGetData(
+        VTFFile: *const VTFLibVTFFile,
         uiFrame: vlUInt,
         uiFace: vlUInt,
         uiSlice: vlUInt,
@@ -605,90 +1112,113 @@ extern "C" {
 }
 extern "C" {
     pub fn vlImageSetData(
+        VTFFile: *mut VTFLibVTFFile,
         uiFrame: vlUInt,
         uiFace: vlUInt,
         uiSlice: vlUInt,
         uiMipmapLevel: vlUInt,
         lpData: *mut vlByte,
-    ) -> vlVoid;
+    );
 }
 extern "C" {
-    pub fn vlImageGetHasThumbnail() -> vlBool;
+    pub fn vlImageGetHasThumbnail(VTFFile: *const VTFLibVTFFile) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGetThumbnailWidth() -> vlUInt;
+    pub fn vlImageGetThumbnailWidth(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetThumbnailHeight() -> vlUInt;
+    pub fn vlImageGetThumbnailHeight(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetThumbnailFormat() -> VTFImageFormat;
+    pub fn vlImageGetThumbnailFormat(VTFFile: *const VTFLibVTFFile) -> VTFImageFormat;
 }
 extern "C" {
-    pub fn vlImageGetThumbnailData() -> *mut vlByte;
+    pub fn vlImageGetThumbnailData(VTFFile: *const VTFLibVTFFile) -> *mut vlByte;
 }
 extern "C" {
-    pub fn vlImageSetThumbnailData(lpData: *mut vlByte) -> vlVoid;
+    pub fn vlImageSetThumbnailData(VTFFile: *mut VTFLibVTFFile, lpData: *mut vlByte);
 }
 extern "C" {
-    pub fn vlImageGetSupportsResources() -> vlBool;
+    pub fn vlImageGetSupportsResources(VTFFile: *const VTFLibVTFFile) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGetResourceCount() -> vlUInt;
+    pub fn vlImageGetResourceCount(VTFFile: *const VTFLibVTFFile) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetResourceType(uiIndex: vlUInt) -> vlUInt;
+    pub fn vlImageGetResourceType(VTFFile: *const VTFLibVTFFile, uiIndex: vlUInt) -> vlUInt;
 }
 extern "C" {
-    pub fn vlImageGetHasResource(uiType: vlUInt) -> vlBool;
+    pub fn vlImageGetHasResource(VTFFile: *const VTFLibVTFFile, uiType: vlUInt) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGetResourceData(uiType: vlUInt, uiSize: *mut vlUInt) -> *mut vlVoid;
+    pub fn vlImageGetResourceData(
+        VTFFile: *const VTFLibVTFFile,
+        uiType: vlUInt,
+        uiSize: *mut vlUInt,
+        Error: *mut VTFLibError,
+    ) -> *mut vlVoid;
 }
 extern "C" {
     pub fn vlImageSetResourceData(
+        VTFFile: *mut VTFLibVTFFile,
         uiType: vlUInt,
         uiSize: vlUInt,
         lpData: *mut vlVoid,
+        Error: *mut VTFLibError,
     ) -> *mut vlVoid;
 }
 extern "C" {
     pub fn vlImageGenerateMipmaps(
+        VTFFile: *mut VTFLibVTFFile,
         uiFace: vlUInt,
         uiFrame: vlUInt,
         MipmapFilter: VTFMipmapFilter,
         SharpenFilter: VTFSharpenFilter,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageGenerateAllMipmaps(
+        VTFFile: *mut VTFLibVTFFile,
         MipmapFilter: VTFMipmapFilter,
         SharpenFilter: VTFSharpenFilter,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGenerateThumbnail() -> vlBool;
+    pub fn vlImageGenerateThumbnail(
+        VTFFile: *mut VTFLibVTFFile,
+        Error: *mut *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageGenerateNormalMap(
+        VTFFile: *mut VTFLibVTFFile,
         uiFrame: vlUInt,
         KernelFilter: VTFKernelFilter,
         HeightConversionMethod: VTFHeightConversionMethod,
         NormalAlphaResult: VTFNormalAlphaResult,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageGenerateAllNormalMaps(
+        VTFFile: *mut VTFLibVTFFile,
         KernelFilter: VTFKernelFilter,
         HeightConversionMethod: VTFHeightConversionMethod,
         NormalAlphaResult: VTFNormalAlphaResult,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
-    pub fn vlImageGenerateSphereMap() -> vlBool;
+    pub fn vlImageGenerateSphereMap(VTFFile: *mut VTFLibVTFFile, Error: *mut VTFLibError)
+        -> vlBool;
 }
 extern "C" {
-    pub fn vlImageComputeReflectivity() -> vlBool;
+    pub fn vlImageComputeReflectivity(
+        VTFFile: *mut VTFLibVTFFile,
+        Error: *mut VTFLibError,
+    ) -> vlBool;
 }
 extern "C" {
     pub fn vlImageGetImageFormatInfo(ImageFormat: VTFImageFormat) -> *const SVTFImageFormatInfo;
@@ -720,7 +1250,7 @@ extern "C" {
         uiMipmapWidth: *mut vlUInt,
         uiMipmapHeight: *mut vlUInt,
         uiMipmapDepth: *mut vlUInt,
-    ) -> vlVoid;
+    );
 }
 extern "C" {
     pub fn vlImageComputeMipmapSize(
@@ -738,6 +1268,7 @@ extern "C" {
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         SourceFormat: VTFImageFormat,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
@@ -747,6 +1278,7 @@ extern "C" {
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         DestFormat: VTFImageFormat,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
@@ -757,6 +1289,7 @@ extern "C" {
         uiHeight: vlUInt,
         SourceFormat: VTFImageFormat,
         DestFormat: VTFImageFormat,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
@@ -773,6 +1306,7 @@ extern "C" {
         bWrap: vlBool,
         bInvertX: vlBool,
         bInvertY: vlBool,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
@@ -785,6 +1319,7 @@ extern "C" {
         uiDestHeight: vlUInt,
         ResizeFilter: VTFMipmapFilter,
         SharpenFilter: VTFSharpenFilter,
+        Error: *mut VTFLibError,
     ) -> vlBool;
 }
 extern "C" {
@@ -793,7 +1328,7 @@ extern "C" {
         uiWidth: vlUInt,
         uiHeight: vlUInt,
         sGammaCorrection: vlSingle,
-    ) -> vlVoid;
+    );
 }
 extern "C" {
     pub fn vlImageComputeImageReflectivity(
@@ -803,119 +1338,11 @@ extern "C" {
         sX: *mut vlSingle,
         sY: *mut vlSingle,
         sZ: *mut vlSingle,
-    ) -> vlVoid;
+    );
 }
 extern "C" {
-    pub fn vlImageFlipImage(
-        lpImageDataRGBA8888: *mut vlByte,
-        uiWidth: vlUInt,
-        uiHeight: vlUInt,
-    ) -> vlVoid;
+    pub fn vlImageFlipImage(lpImageDataRGBA8888: *mut vlByte, uiWidth: vlUInt, uiHeight: vlUInt);
 }
 extern "C" {
-    pub fn vlImageMirrorImage(
-        lpImageDataRGBA8888: *mut vlByte,
-        uiWidth: vlUInt,
-        uiHeight: vlUInt,
-    ) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialIsBound() -> vlBool;
-}
-extern "C" {
-    pub fn vlBindMaterial(uiMaterial: vlUInt) -> vlBool;
-}
-extern "C" {
-    pub fn vlCreateMaterial(uiMaterial: *mut vlUInt) -> vlBool;
-}
-extern "C" {
-    pub fn vlDeleteMaterial(uiMaterial: vlUInt) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialCreate(cRoot: *const vlChar) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialDestroy() -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialIsLoaded() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialLoad(cFileName: *const vlChar) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialLoadLump(lpData: *const vlVoid, uiBufferSize: vlUInt) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialLoadProc(pUserData: *mut vlVoid) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialSave(cFileName: *const vlChar) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialSaveLump(
-        lpData: *mut vlVoid,
-        uiBufferSize: vlUInt,
-        uiSize: *mut vlUInt,
-    ) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialSaveProc(pUserData: *mut vlVoid) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetFirstNode() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetLastNode() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetNextNode() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetPreviousNode() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetParentNode() -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetChildNode(cName: *const vlChar) -> vlBool;
-}
-extern "C" {
-    pub fn vlMaterialGetNodeName() -> *const vlChar;
-}
-extern "C" {
-    pub fn vlMaterialSetNodeName(cName: *const vlChar) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialGetNodeType() -> VMTNodeType;
-}
-extern "C" {
-    pub fn vlMaterialGetNodeString() -> *const vlChar;
-}
-extern "C" {
-    pub fn vlMaterialSetNodeString(cValue: *const vlChar) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialGetNodeInteger() -> vlUInt;
-}
-extern "C" {
-    pub fn vlMaterialSetNodeInteger(iValue: vlUInt) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialGetNodeSingle() -> vlFloat;
-}
-extern "C" {
-    pub fn vlMaterialSetNodeSingle(sValue: vlFloat) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialAddNodeGroup(cName: *const vlChar) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialAddNodeString(cName: *const vlChar, cValue: *const vlChar) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialAddNodeInteger(cName: *const vlChar, iValue: vlUInt) -> vlVoid;
-}
-extern "C" {
-    pub fn vlMaterialAddNodeSingle(cName: *const vlChar, sValue: vlFloat) -> vlVoid;
+    pub fn vlImageMirrorImage(lpImageDataRGBA8888: *mut vlByte, uiWidth: vlUInt, uiHeight: vlUInt);
 }
