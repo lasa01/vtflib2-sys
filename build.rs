@@ -47,7 +47,6 @@ fn build_static() {
     let mut build_config = cmake::Config::new("vendor");
     build_config.define("BUILD_SHARED_LIBS", "OFF");
     build_config.pic(true);
-    // todo: a feature for this
 
     let dest = build_config.build();
 
